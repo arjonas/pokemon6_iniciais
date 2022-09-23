@@ -1,7 +1,7 @@
 from flask import  Flask, render_template
 import requests
 from random import randint
-
+from jinja2 import escape
 
 
 endpoint = 'https://pokeapi.co/api/v2/pokemon/'
