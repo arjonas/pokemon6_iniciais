@@ -226,13 +226,38 @@ section {
   text-decoration: underline;
 }
 
+
+
 /*
 ---------------------------------------------
-Pre-loader Style
-
+Header Styles
 ---------------------------------------------
-Header Style
--
+*/
+
+
+.header-area .main-nav .logo {
+  border-right: 1px solid #27292a;
+  flex-basis: 25%;
+  margin-right: 5%;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.header-area .main-nav .logo img {
+  width: 291px;
+  margin-top:60px;
+}
+
+.background-header .main-nav .logo {
+  margin-top: 8px;
+}
+
+.background-header .main-nav .logo img {
+  width: 180px;
+}
+
 /*
 --------------------------------------------
 /*
@@ -242,7 +267,7 @@ Most Popular Style
 */
 
 .most-popular {
-  margin-top: 60px;
+  margin-bottom: 100px;
   padding: 30px;
   background-color: #47CB9C;
   border-radius: 23px;
