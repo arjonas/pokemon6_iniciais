@@ -36,11 +36,11 @@ def get_pokemons():
         dados = resposta.json()
 
         img = dados['sprites']['front_default']
-        nome = dados['name']
+        nome = dados['name'].title()
+        tipo = dados['types'][0]['type']['name'].title()
 
 
-
-        data_pokemon[contador] = {'imagem':img,'nome':nome}
+        data_pokemon[contador] = {'imagem':img,'nome':nome,'tipo':tipo}
         contador = contador + 1
 
 

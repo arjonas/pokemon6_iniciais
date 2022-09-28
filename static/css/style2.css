@@ -1,29 +1,4 @@
-/*
 
-TemplateMo 579 Cyborg Gaming
-
-https://templatemo.com/tm-579-cyborg-gaming
-
-*/
-
-/* ---------------------------------------------
-Table of contents
-------------------------------------------------
-01. font & reset css
-02. reset
-03. global styles
-04. header
-05. banner
-06. features
-07. testimonials
-08. contact
-09. footer
-
---------------------------------------------- */
-/*
----------------------------------------------
-font & reset css
----------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
 /*
@@ -246,7 +221,7 @@ Header Styles
 }
 
 .header-area .main-nav .logo img {
-  width: 291px;
+  width: 261px;
   margin-top:60px;
 }
 
@@ -267,7 +242,7 @@ Most Popular Style
 */
 
 .most-popular {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   padding: 30px;
   background-color: #47CB9C;
   border-radius: 23px;
