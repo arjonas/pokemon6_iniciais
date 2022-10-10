@@ -1,0 +1,23 @@
+body{
+
+    background-color:#343353;
+
+}
+
+@media screen and (min-width: 950px) {
+
+    .embalagem{
+        transform: translate(-50%,-34%);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+    }
+
+    .botao{
+        margin:0 0 0 70%;
+        top:70%
+        position:fixed;
+
+    }
+    }
+
