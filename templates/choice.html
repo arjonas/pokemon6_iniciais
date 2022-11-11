@@ -22,12 +22,12 @@
 
  <div class="header">
     <h1>Por quais destas cidades você se aventura-rá  pela sua jornada ? </h1>
-   <form method="post">
+   <form method="post" action="{{url_for('final')}}">
     <div class="embalagem">
 
 
         <div class="produto text-center">
-                    <input type="checkbox" id="kanto" value="0">
+                    <input type="checkbox" id="kanto" name="city" value="{{[1,151]}}">
                     <label for="kanto">   -Kanto
                     
                     <img class="city" src="static/img/kanto.png">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="produto">
-                    <input type="checkbox" id="johto">
+                    <input type="checkbox" id="johto" name="city" value="{{[152,251]}}">
                     <label for="johto">   -Johto
 
                     <img class="city" src="static/img/johto.png">
@@ -45,7 +45,7 @@
         </div>
 
         <div class="produto">
-                    <input type="checkbox" id="hoen">
+                    <input type="checkbox" id="hoen" name="city" value="{{[252,386]}}">
                     <label for="hoen">   -Hoenn
 
                     <img class="city" src="static/img/hooeh.png">
@@ -54,7 +54,7 @@
         </div>
 
         <div class="produto">
-                    <input type="checkbox" id="sino">
+                    <input type="checkbox" id="sino" name="city" value="{{[387,494]}}">
                     <label for="sino">   -Sinnoh
 
                     <img class="city" src="static/img/sinnoh.png">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="produto">
-                    <input type="checkbox" id="unova">
+                    <input type="checkbox" id="unova" name="city" value="{{[495,649]}}">
                     <label for="unova">   -Unova
 
                     <img class="city" src="static/img/unova.png">
@@ -71,7 +71,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
         <div class="produto">
-                    <input type="checkbox" id="kalos">
+                    <input type="checkbox" id="kalos" name="city" value="{{[650,721]}}">
                     <label for="kalos">   -Kalos
 
                     <img class="city" src="static/img/killoh.png">
@@ -79,7 +79,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
         <div class="produto">
-                    <input type="checkbox" id="alola">
+                    <input type="checkbox" id="alola" name="city" value="{{[722,809]}}">
                     <label for="alola">   -Alola
 
                     <img class="city" src="static/img/alola.png">
@@ -87,8 +87,8 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
         <div class="produto">
-                    <input type="checkbox" id="galar>
-                    <label for=galar">   -Kanto
+                    <input type="checkbox" id="galar" name="city"  value="{{[810,906]}}">
+                    <label for="galar">   -Kanto
 
                     <img class="city" src="static/img/galar.png">
                     </label>

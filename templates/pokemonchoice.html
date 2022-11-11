@@ -23,32 +23,32 @@
 
  <div class="header">
     <h1>Escolha o seu pokemon incial. </h1>
-   <form method="post">
+   <form method="post" action="{{url_for('jornada')}}">
     <div class="embalagem">
 
 
         <div class="produto text-center">
-                    <input type="radio" name="pokemon" id="kanto" value={{names[0]}}>
-                    <label for="kanto">   -{{names[0]}}
+                    <input type="radio" name="pokemon" id="kanto" value={{inicial_nome[0]}}>
+                    <label for="kanto">   -{{inicial_nome[0]}}
 
-                    <img class="city" src={{ imgs[0] }}>
+                    <img class="city" src={{ inicial_img[0] }}>
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
         <div class="produto">
-                    <input type="radio" name="pokemon" id="johto" value={{names[1]}}>
-                    <label for="johto">   -{{names[1]}}
+                    <input type="radio" name="pokemon" id="johto" value={{inicial_nome[1]}}>
+                    <label for="johto">   -{{inicial_nome[1]}}
 
-                    <img class="city" src={{ imgs[1] }}>
+                    <img class="city" src={{ inicial_img[1] }}>
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
         <div class="produto">
-                    <input type="radio" name="pokemon" id="hoen" value={{names[2]}}>
-                    <label for="hoen">   {{names[2]}}
-                    <img class="city" src={{ imgs[2] }}>
+                    <input type="radio" name="pokemon" id="hoen" value={{inicial_nome[2]}}>
+                    <label for="hoen">   {{inicial_nome[2]}}
+                    <img class="city" src={{ inicial_img[2] }}>
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
