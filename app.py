@@ -316,7 +316,7 @@ def jornada():
 
 
 
-    return render_template('choice.html',user=current_user.nome)
+    return render_template('city.html',user=current_user.nome)
 
 
 @app.route('/oi',methods=['GET','POST'])

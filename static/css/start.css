@@ -47,3 +47,23 @@ body{
         gap: 20px;
 
     }
+
+
+    .botao{
+    position:absolute;
+    top:120%;
+    margin-bottom:10px;
+
+}
+    .pe{
+
+
+        height:20px;
+        width:50%;
+        color:#85B732;
+        position:absolute;
+        top:144%;
+        margin-bottom:10px;
+    }
+
+}

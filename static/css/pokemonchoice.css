@@ -69,12 +69,31 @@ input[type='radio']{
 
     }
 
-    .botao{
+    .botao2{
         margin:0 0 0 70%;
-        top:70%
-        position:fixed;
+
+        position:absolute;
+        top:97%
+    }
+
+    .pe{
+        height:20px;
+        width:50%;
+        color:#8DC1F1;
+        position:absolute;
+        top:118%;
+        margin-bottom:10px;
+    }
+    .header{
+
+        margin-top:60px;
 
     }
-    }
+
+
+
+}
+
+
 
 
