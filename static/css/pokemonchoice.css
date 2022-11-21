@@ -1,8 +1,64 @@
-body{
 
-    background-color:#343353;
+
+
+.pokemon{
+
+    background-color:#27292A;
 
 }
+.city{
+
+    width:195%;
+    margin-right:-20px;
+
+}
+
+
+
+
+
+input[type='radio']{
+
+    -webkit-appearance:tab;
+    position:fixed;
+    width 120%;
+    cursor: pointer;
+    botton:40%;
+
+}
+
+.text-white{
+
+    text-align:right;
+}
+
+
+.embalagem{
+
+    gap:20px;
+
+}
+.botao2{
+    margin:0 0 0 24%;
+    position:absolute;
+    top:200%;
+
+
+    }
+
+.pe{
+    height:20px;
+    width:50%;
+
+    position:absolute;
+    top:208%;
+    margin-bottom:10px;
+
+}
+
+
+
+
 
 @media screen and (min-width: 950px) {
 
@@ -20,4 +76,5 @@ body{
 
     }
     }
+
 

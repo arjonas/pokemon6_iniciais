@@ -1,16 +1,20 @@
 import random
+import time
+
+import flask
+
 from Constantes import  *
 
-from flask import  Flask, render_template,request,redirect,url_for,session
+from flask import  Flask, render_template,request,redirect,url_for,session ,jsonify, make_response
 import requests
-from random import randint,sample
 
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from json import JSONDecodeError
 import sqlite3
-from flask_login import LoginManager, UserMixin,current_user,login_user
-
-
+from flask_login import LoginManager, UserMixin,current_user,login_user, logout_user
+from sqlite3 import IntegrityError
+import re
 
 #classe do flask_login
 login_manager = LoginManager()
@@ -23,50 +27,13 @@ login_manager = LoginManager()
 
 endpoint = 'https://pokeapi.co/api/v2/pokemon/'
 
+
+regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
 app = Flask(__name__)
 # app.app_context().push()
 app.config['SECRET_KEY'] = 'key'
 login_manager.init_app(app)
-
-
-
-
-#
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pokemons.db'
-# engine='sqlite://'
-#
-#
-# db = sqlite3.connect('pokemons_iniciais.db')
-#
-# cursor = db.cursor()
-# cursor.execute("CREATE TABLE usuarios (id INTEGER PRIMARY KEY,"
-#                " nome varchar(250) NOT NULL ,email varchar(30) NOT NULL , senha varchar(80) NOT NULL)")
-#
-#
-#
-#
-# cursor = db.cursor()
-# cursor.execute("CREATE TABLE pokemons (id INTEGER PRIMARY KEY,"
-#                " nome varchar(250) NOT NULL UNIQUE, imagem varchar(250) NOT NULL, tipo varchar(250) NOT NULL,"
-#                "FOREIGN KEY (Treinador) references usuarios(id) )")
-
-
-
-
-
-
-
-
-
-
-
-#
-#
-# #Classe Usuario para o tabela do banco de dados
-# class Usuario(db.Model):
-#     __tablename__ ='usuarios'
-#     id = Column(Integer,primary_key=True)
-#     nome = Column(String(1000))
 
 
 #Flask login classes e configurações
@@ -85,6 +52,20 @@ class User(UserMixin):
 
         def get_id(self):
             return self.id
+
+
+
+
+
+
+def valida_email(email):
+
+
+    if re.search(regex,email):
+
+        return True
+    else:
+        return False
 
 
 
@@ -120,13 +101,52 @@ def login():
         cursor.execute(f"SELECT * from usuarios where email='{email}'")
         user = cursor.fetchall()
         print(user)
-        usuario = load_user(user[0])
+        # Trata erro caso usuario tecle email não existente
+        try:
+            usuario = load_user(user[0])
 
-        if email == usuario.email and senha == usuario.senha:
-            print('chegou')
-            login_user(usuario)
-            print('chegou')
-            return redirect(url_for('home'))
+        except IndexError:
+            error =" Email não cadastrado"
+            flask.flash(error)
+            return render_template('login.html')
+
+
+
+
+
+        try:
+            logou = check_password_hash(pwhash=usuario.senha, password=senha)
+
+        except AttributeError:
+
+            error = 'Email não cadastrado'
+            flask.flash(error)
+            return render_template('login.html')
+
+
+
+        if logou:
+                print('chegou')
+                login_user(usuario)
+                print('chegou')
+                # recupera nome do usuario
+                treinador_email = current_user.email
+                #query para subir pokemons do usuario
+                dados_banco = cursor.execute(f"SELECT nome FROM pokemons WHERE treinador_email = '{treinador_email}'")
+                nome = dados_banco.fetchone()
+                print(nome)
+
+                if  nome != None:
+                    return redirect(url_for('get_all'))
+                else:
+                    return redirect(url_for('home'))
+
+        else:
+
+                error = 'Senha errada , tente novamente'
+                flask.flash(error)
+                return render_template('login.html')
+
 
 
 
@@ -146,18 +166,41 @@ def registrar():
 
         nome  = request.form.get('nome')
         email = request.form.get('email')
-        senha = request.form.get('senha')
-        print('oi')
-        db = sqlite3.connect('pokemons_iniciais.db')
-        cursor = db.cursor()
-        cursor.execute(f"INSERT INTO usuarios (nome, email, senha) VALUES('{nome}','{email}', '{senha}')")
-        db.commit()
-        db.close()
 
+        # função valida_email() verifica se o email digitado esta em um formato valido
+        if valida_email(email) == True:
+            senha =generate_password_hash(request.form.get('senha'),salt_length=8)
+
+            db = sqlite3.connect('pokemons_iniciais.db')
+            cursor = db.cursor()
+            try:
+                cursor.execute(f"INSERT INTO usuarios (nome, email, senha) VALUES('{nome}','{email}', '{senha}')")
+                db.commit()
+                db.close()
+                return redirect(url_for('login'))
+
+            # erro causado caso já exista o email digitado pelo usuario
+            except IntegrityError:
+
+                error = 'Email já cadastrado para um usuario'
+                flask.flash(error)
+                return render_template('registrar.html')
+
+       #caso o usuario insira um formato de email incomum
+        else:
+            error = 'Insira um formato de email válido'
+            flask.flash(error)
+            return render_template('registrar.html')
 
     return render_template('registrar.html')
 
 
+@app.route('/logout')
+def logout():
+
+    if current_user.is_authenticated:
+        logout_user()
+    return redirect(url_for('login'))
 
 
 @app.route('/home',methods=['POST','GET'])
@@ -172,8 +215,8 @@ def home():
 
     #CIDADE INICIAL
     if request.method == "GET":
-
-        return render_template('Start.html')
+        usuario = current_user.nome
+        return render_template('Start.html',user = usuario)
 
 
 
@@ -183,7 +226,7 @@ def inicial_pokemon():
     escolha = request.args.get('escolha')
 
     regiao = regioes[int(escolha)]
-
+    #pega pokemons iniciais através de item[0] (primeiro item da tupla item que está em regioes
     pokemons_iniciais = [item[0] for item in regiao]
 
     iniciais_nome =[]
@@ -204,9 +247,10 @@ def inicial_pokemon():
             iniciais_nome.append(nome)
 
 
+    usuario = current_user.nome
 
-
-    return render_template('pokemonchoice.html',inicial_img=iniciais_img,inicial_nome=iniciais_nome)
+    return render_template('pokemonchoice.html',inicial_img=iniciais_img,inicial_nome=iniciais_nome,
+                           user=usuario)
 
 
 
@@ -228,17 +272,34 @@ def jornada():
 #  GET pega dados recebidos na rota inicial_pokemon tra e adiciona ao banco de dados.. retorna
 #pagina para escolher cidades por onde passou
     data = request.form.get('pokemon')
+    print(data)
 
+    #escolha o pokemon inicial atraves das escolhas e sua evolução .. utilizando dicionario
+# 'pk_iniciais'
     inicial = random.choice(pk_iniciais[data])
 
+    Resposta = False
+
+    while Resposta == False:
+        try:
+            dados = requests.get(endpoint + inicial)
+            time.sleep(0.7)
+            dados = dados.json()
+            print(1)
+            Resposta = True
+
+        except JSONDecodeError:
+
+
+             response = make_response(jsonify({"Error":"Erro de resposta do Servidor da API , tente denovo"}))
+
+             return  response
 
 
 
-    dados = requests.get(endpoint + inicial)
-    dados = dados.json()
 
 
-
+    treinador_email = current_user.email
 
     img = dados['sprites']['front_default']
     nome = dados['name']
@@ -249,16 +310,22 @@ def jornada():
 
     db = sqlite3.connect('pokemons_iniciais.db')
     cursor = db.cursor()
-    cursor.execute(f"INSERT INTO pokemons VALUES(1,'{nome}','{img}', '{tipo}')")
+    cursor.execute(f"INSERT INTO pokemons VALUES('{treinador_email}','{nome}','{img}', '{tipo}')")
     db.commit()
     db.close()
 
 
-    return render_template('choice.html')
+
+    return render_template('choice.html',user=current_user.nome)
 
 
 @app.route('/oi',methods=['GET','POST'])
 def final():
+    # lista criada para evitar pokemons repetidos
+    lista_de_numeros = []
+    pokemon_number = ''
+
+
 
     if request.method == 'POST':
         # Pega cidades escolhidas na pagina anterior
@@ -280,24 +347,32 @@ def final():
 
 
             #randoniza um numero no range entre  numeros fornecidos
-            pokemon_number = str(random.randint(pk_id1,pk_id2))
+            while len(lista_de_numeros) < 5:
+                pokemon_number = random.randint(pk_id1,pk_id2)
+                if pokemon_number not in lista_de_numeros:
+                    lista_de_numeros.append(pokemon_number)
+                    print(lista_de_numeros)
 
-            resposta = requests.get(endpoint+pokemon_number)
+                    pokemon_number = str(pokemon_number)
 
-            resposta  = resposta.json()
+                    resposta = requests.get(endpoint+pokemon_number)
 
-            img = resposta['sprites']['front_default']
-            nome = resposta['name']
-            tipo = resposta['types'][0]['type']['name'].title()
+                    resposta  = resposta.json()
+
+
+                    treinador_email = current_user.email
+                    img = resposta['sprites']['front_default']
+                    nome = resposta['name']
+                    tipo = resposta['types'][0]['type']['name'].title()
             #
             #
 
             #
-            db = sqlite3.connect('pokemons_iniciais.db')
-            cursor = db.cursor()
-            cursor.execute(f"INSERT INTO pokemons VALUES({id},'{nome}','{img}', '{tipo}')")
-            db.commit()
-            db.close()
+                    db = sqlite3.connect('pokemons_iniciais.db')
+                    cursor = db.cursor()
+                    cursor.execute(f"INSERT INTO pokemons VALUES('{treinador_email}','{nome}','{img}', '{tipo}')")
+                    db.commit()
+                    db.close()
 
 
         return redirect(url_for('get_all'))
@@ -307,6 +382,9 @@ def final():
 
 @app.route('/todos')
 def get_all():
+
+    treinador_email = current_user.email
+
     #criando listas vazias para inserir dados extraido do banco
     imagens = []
     nomes = []
@@ -316,17 +394,17 @@ def get_all():
     db = sqlite3.connect('pokemons_iniciais.db')
     cursor = db.cursor()
 
-    dados_banco = cursor.execute("SELECT nome FROM pokemons ORDER BY id ASC")
+    dados_banco = cursor.execute(f"SELECT nome FROM pokemons WHERE treinador_email = '{treinador_email}'")
     nome = dados_banco.fetchall()
 
 
 
     for  tupla in  nome:
-        print(tupla[0])
+
         nomes.append(tupla[0])
+        print(nomes)
 
-
-    dados_banco = cursor.execute("SELECT imagem FROM pokemons")
+    dados_banco = cursor.execute(f"SELECT imagem FROM pokemons WHERE treinador_email = '{treinador_email}'")
     imagem = dados_banco.fetchall()
 
     for tupla in imagem:
@@ -334,15 +412,16 @@ def get_all():
 
 
 
-    dados_banco = cursor.execute("SELECT tipo FROM pokemons")
+    dados_banco = cursor.execute(f"SELECT tipo FROM pokemons WHERE treinador_email = "
+                                 f"'{treinador_email}'")
     tipo = dados_banco.fetchall()
 
     for tupla in tipo:
         tipos.append(tupla[0])
 
 
-
-    return render_template('pokemons.html', imgs = imagens , tipos=tipos, nomes=nomes)
+    return render_template('pokemons.html', imgs = imagens , tipos=tipos, nomes=nomes ,
+                           user=current_user.nome)
 
 
 

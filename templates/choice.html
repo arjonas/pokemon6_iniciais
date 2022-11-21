@@ -8,6 +8,7 @@
 
 
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/city.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -22,6 +23,7 @@
 
  <div class="header">
     <h1>Por quais destas cidades você se aventura-rá  pela sua jornada ? </h1>
+         <a  class="sair" href="{{url_for('logout')}}"><h4>Sair</h4> </a>
    <form method="post" action="{{url_for('final')}}">
     <div class="embalagem">
 

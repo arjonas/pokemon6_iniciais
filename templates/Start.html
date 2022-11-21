@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
     <meta charset="UTF-8">
     <title></title>
 
 
 
 
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/start.css">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
+ <!--    BOOTSTRAP-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=
+    Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 
 <!--    fonte Abyssinica SIL-->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+        <link rel="stylesheet" href="static/css/style.css">
+     <link rel="stylesheet" href="static/css/start.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Oswald&display=swap" rel="stylesheet">
 </head>
+
+
+
+
+
 <body>
 
+<!--navbaaarr-->
 
+
+
+<!--Endnavbar-->
  <div class="header">
-    <h1>Por qual destas cidades voce inciou sua jornada ? </h1>
+    <h1>{{user.title()}} ,por qual destas  cidades voce inciou sua jornada ? </h1>
+      <a  class="sair" href="{{url_for('logout')}}"><h4>Sair</h4> </a>
+
+
    <form method="post" >
     <div class="embalagem">
 
@@ -36,7 +60,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
-        <div class="produto">
+        <div class="produto text-center">
                     <input type="radio" name="city" id="johto" value='1'>
                     <label for="johto">   -Johto
 
@@ -45,7 +69,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
-        <div class="produto">
+        <div class="produto text-center">
                     <input type="radio" name="city" id="hoen" value='2'>
                     <label for="hoen">   -Hoenn
                     <img class="city" src="static/img/hooeh.png">
@@ -53,7 +77,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
-        <div class="produto">
+        <div class="produto text-center">
                     <input type="radio" name="city" id="sino" value='3'>
                     <label for="sino">   -Sinnoh
 
@@ -62,7 +86,7 @@
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
 
-        <div class="produto">
+        <div class="produto text-center">
                     <input type="radio"  name="city" id="unova" value='4'>
                     <label for="unova">   -Unova
 
@@ -70,7 +94,7 @@
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
-        <div class="produto">
+        <div class="produto text-center">
                     <input type="radio" name="city" id="kalos" value='5'>
                     <label for="kalos">   -Kalos
 
@@ -78,7 +102,9 @@
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
-        <div class="produto">
+
+
+        <div class="produto text-center">
                     <input type="radio" name="city" id="alola" value='6'>
                     <label for="alola">   -Alola
 
@@ -86,7 +112,7 @@
                     </label>
 <!--                    <img src="static/img/kanto.jpg" style="width:20%;">-->
         </div>
-        <div class="produto">
+        <div class="produto text-center" style="margin-botton:50%;">
                     <input type="radio" name="city" id="galar" value='7'>
                     <label for="galar">   -Galar
 
@@ -106,12 +132,11 @@
 
 <footer>
     <div class="pe">
-
-            .
-<!--          <p>Copyright © 2022 <a href="#">SidGaming</a> Company. All rights reserved.</p>-->
-
+    .
         </div>
 
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,26 @@
+.embalagem{
+    transform: translate(-50%,-06%);
+   grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+
+    }
+
+
+
+.botao{
+    position:absolute;
+    top:104%;
+    margin-bottom:10px;
+
+
+}
+
+.pe{
+    height:20px;
+    width:50%;
+
+    position:absolute;
+    top:464%;
+    margin-bottom:10px;
+
+}

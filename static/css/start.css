@@ -4,3 +4,46 @@ body{
 
 
 }
+
+.sair{
+
+    position:relative;
+    z-index: 2;
+}
+
+
+.embalagem{
+    transform: translate(-50%,-04%);
+   grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+
+    }
+
+
+
+.botao{
+    position:absolute;
+    top:104%;
+    margin-bottom:10px;
+
+
+}
+
+.pe{
+    height:20px;
+    width:50%;
+
+    position:absolute;
+    top:464%;
+    margin-bottom:10px;
+
+}
+
+@media screen and (min-width: 950px) {
+
+    .embalagem{
+        transform: translate(-50%,-34%);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+    }

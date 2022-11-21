@@ -12,6 +12,7 @@ body{
 
     background-color:#8DC1F1;
     margin: 50px;
+    margin-botton:160%;
 
 }
 h1{
@@ -58,7 +59,7 @@ footer div {
 
 }
 .produto{
-    margin-top:25px;
+    margin-top:105px;
     mardin-left:9px;
     height: 300px;
     width:  250px;
@@ -124,7 +125,7 @@ input[type='submit'] {
 
 .produto ig {
 
-    margin-top:25px;
+    margin-top:35px;
     position: absolute;
     margin:auto;
     left:0;
@@ -140,7 +141,7 @@ input[type='submit'] {
 
     .embalagem{
         transform: translate(-50%,-34%);
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(1, 4fr);
         gap: 20px;
 
     }
@@ -160,9 +161,30 @@ input[type='submit'] {
 
 
     .botao{
-        margin-top:30%;
-        margin-left:310%;
-        align-items:rght;
+
+        position:absolute;
+        top:110%;
+
+
+    }
+
+    .botao2{
+
+        position:absolute;
+        top:110%;
+        right:45%
+
+
+    }
+
+
+
+
+    .pe{
+
+        position:absolute;
+        top:130%;
+
     }
 
 
