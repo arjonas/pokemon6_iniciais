@@ -1,9 +1,10 @@
 import random
+import sqlite3
 import time
 
 import flask
 
-from Constantes import  *
+from Constantes import *
 
 from flask import  Flask, render_template,request,redirect,url_for,session ,jsonify, make_response
 import requests
@@ -11,7 +12,7 @@ import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from json import JSONDecodeError
-import sqlite3
+
 from flask_login import LoginManager, UserMixin,current_user,login_user, logout_user
 from sqlite3 import IntegrityError
 import re
