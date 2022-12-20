@@ -13,7 +13,7 @@ body{
 
 
 .embalagem{
-    transform: translate(-50%,-04%);
+    transform: translate(-50%,-7%);
    grid-template-columns: repeat(1, 1fr);
     gap: 20px;
 
@@ -39,7 +39,7 @@ body{
 
 }
 
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 1000px) {
 
     .embalagem{
         transform: translate(-50%,-34%);
